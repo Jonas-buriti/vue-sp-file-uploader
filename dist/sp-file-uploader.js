@@ -1,6 +1,5 @@
-﻿var spFileUploader = (function (Vue, pnp){
+﻿(function (Vue, pnp){
 	'use strict';
-	Vue.config.devtools = true;
 	
 	return Vue.component('sp-file-uploader',{
 		data: function () {
@@ -40,18 +39,18 @@
 				}.bind(this));
 			},
 			upload: function () {
-				this.status = 'Carregando arquivo';
+				this.status = 'Loading file';
 				return this.uploadFiles()
 					.then(this.applyUpload, this.handleError);
 			},
 			applyUpload: function (d) {
-				this.status = "Upload finalizado!";
+				this.status = "Upload done!";
 				this.$emit('upload-completed', d);
 				return d;
 			},
 			handleError: function (d) {
-				this.status = "Erro ao fazer upload!";
-				throw "Erro ao fazer upload!";
+				this.status = "Error uploading";
+				throw this.status ;
 				console.log(d)
 			},
 			uploadFiles: function () {
@@ -73,7 +72,7 @@
 				aria-label="Arraste e solte arquivos aqui"\
 				style="margin-top:10px; margin-bottom:10px; border: 2px dashed #bbb;font-size: 18px;-moz-border-radius: 5px;-webkit-border-radius: 5px;border-radius: 5px;padding: 25px;text-align: center;"\
 				id="drop-zone"\
-			>Arraste e solte arquivos aqui</div>\
+			>Drag and drop files here</div>\
 			<div v-if="status" style="margin-top:10px; margin-bottom:10px; border: 1px solid #bbb;font-size: 18px; padding: 10px;text-align: center;">\
 				{{ status }}\
 			</div>\
