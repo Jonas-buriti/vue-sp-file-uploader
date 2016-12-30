@@ -26,7 +26,7 @@ new Vue({
 	'<div>\
 		<sp-file-uploader>\
 			v-ref="fileUploader"\
-			v-on:upload-completed="doSomething"\ 
+			v-on:upload-completed="doSomething"\
 			:showUploadButton="true"\
 			:folder-url="folderUrl">\
 		</sp-file-uploader>\
@@ -73,7 +73,7 @@ new Vue({
 	'<div>\
 		<sp-file-uploader>\
 			v-ref="fileUploader"\
-			v-on:upload-completed="doSomething"\ 
+			v-on:upload-completed="doSomething"\
 			:showUploadButton="true"\
 			:folder-url="folderUrl">\
 		</sp-file-uploader>\
@@ -109,7 +109,7 @@ new Vue({
 			v-ref="fileUploader"\
 			:folder-url="folderUrl">\
 		</sp-file-uploader>\
-		<button type-"button" v-on:click="customUploadFunc">My button</button>
+		<button type-"button" v-on:click="customUploadFunc">My button</button>\
 	</div>'
 });		
 ```
