@@ -67,7 +67,7 @@
 			<div style="margin-bottom:10px;">\
 				<input v-on:change="syncFiles" type="file" id="files" :multiple="multiple"/>\
 			</div>\
-			<strong>OU</strong>\
+			<strong>OR</strong>\
 			<div\
 				aria-label="Arraste e solte arquivos aqui"\
 				style="margin-top:10px; margin-bottom:10px; border: 2px dashed #bbb;font-size: 18px;-moz-border-radius: 5px;-webkit-border-radius: 5px;border-radius: 5px;padding: 25px;text-align: center;"\
