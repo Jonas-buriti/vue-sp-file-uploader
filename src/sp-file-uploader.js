@@ -59,7 +59,6 @@
 				return d;
 			},
 			handleError: function (d) {
-				debugger
 				this.status = "Error uploading";
 				throw this.status ;
 				console.log(d)
