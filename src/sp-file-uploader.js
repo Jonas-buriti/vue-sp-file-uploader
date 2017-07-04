@@ -1,6 +1,13 @@
-﻿(function (Vue, pnp){
+(function (Vue, pnp){
 	'use strict';
 	
+	pnp.setup({
+	    headers: {
+	        "Accept": "application/json; odata=verbose"
+	    }
+	});
+
+
 	return Vue.component('sp-file-uploader',{
 		data: function () {
 			return {
@@ -11,6 +18,7 @@
 		props: {
 			folderUrl: { type: String, required: true },
 			multiple: { type: Boolean, default: false },
+			allowDrag: { type: Boolean, default: false },
 			showUploadButton: { type: Boolean, default: false }
 		},
 		mounted: function () {
@@ -19,8 +27,10 @@
 		methods: {
 			loadDropZone: function () {
 				var dropZone = document.getElementById('drop-zone');
-				dropZone.addEventListener('dragover', this.handleDragOver, false);
-				dropZone.addEventListener('drop', this.syncFiles, false);
+				if(dropZone){
+					dropZone.addEventListener('dragover', this.handleDragOver, false);
+					dropZone.addEventListener('drop', this.syncFiles, false);
+				}
 			},
 			handleDragOver: function (e) {
 				e.stopPropagation();
@@ -49,13 +59,14 @@
 				return d;
 			},
 			handleError: function (d) {
+				debugger
 				this.status = "Error uploading";
 				throw this.status ;
 				console.log(d)
 			},
 			uploadFiles: function () {
 				var requests = this.files.map(function (file) {
-					return pnp.sp.web.getFolderByServerRelativeUrl(this.folderUrl)
+					return pnp.sp.web.getFolderByServerRelativeUrl(_spPageContextInfo.webServerRelativeUrl+this.folderUrl)
 					 	.files.add(file.name, file.data, true)
 					}.bind(this));
 					
@@ -67,12 +78,14 @@
 			<div style="margin-bottom:10px;">\
 				<input v-on:change="syncFiles" type="file" id="files" :multiple="multiple"/>\
 			</div>\
-			<strong>OR</strong>\
-			<div\
-				aria-label="Arraste e solte arquivos aqui"\
-				style="margin-top:10px; margin-bottom:10px; border: 2px dashed #bbb;font-size: 18px;-moz-border-radius: 5px;-webkit-border-radius: 5px;border-radius: 5px;padding: 25px;text-align: center;"\
-				id="drop-zone"\
-			>Drag and drop files here</div>\
+			<element v-if="allowDrag">\
+				<strong>OR</strong>\
+				<div\
+					aria-label="Arraste e solte arquivos aqui"\
+					style="margin-top:10px; margin-bottom:10px; border: 2px dashed #bbb;font-size: 18px;-moz-border-radius: 5px;-webkit-border-radius: 5px;border-radius: 5px;padding: 25px;text-align: center;"\
+					id="drop-zone"\
+				>Drag and drop files here</div>\
+			</element>\
 			<div v-if="status" style="margin-top:10px; margin-bottom:10px; border: 1px solid #bbb;font-size: 18px; padding: 10px;text-align: center;">\
 				{{ status }}\
 			</div>\
